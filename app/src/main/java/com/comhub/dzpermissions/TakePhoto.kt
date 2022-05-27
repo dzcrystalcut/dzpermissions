@@ -60,6 +60,7 @@ import org.w3c.dom.Text
     fun TakePicture() {
 
 
+
     val context = LocalContext.current
 
         val cameraLauncher = rememberLauncherForActivityResult(
