@@ -4,6 +4,7 @@ import android.Manifest
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -12,11 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import com.comhub.dzpermissions.MainActivity.Companion.assistBitmap
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 
 
+@ExperimentalMaterialApi
 @ExperimentalPermissionsApi
 @Composable
 fun PermissionManager() {
@@ -45,6 +48,7 @@ fun PermissionManager() {
             }
         }
     )
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,7 +59,9 @@ fun PermissionManager() {
                 Manifest.permission.CAMERA -> {
                     when {
                         perm.hasPermission -> {
-                            Text(text = "Camera permission accepted")
+                            //Text(text = "Camera permission accepted")
+
+                            TakePicture()
                         }
                         perm.shouldShowRationale -> {
                             Text(

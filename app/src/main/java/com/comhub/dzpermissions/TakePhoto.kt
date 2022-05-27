@@ -50,19 +50,17 @@ import org.w3c.dom.Text
 
 
 
-    var isCameraSelected = false
+    //var isCameraSelected = false
 
-    var bitmap: Bitmap? = null
+
 
 @ExperimentalMaterialApi
 @ExperimentalPermissionsApi
     @Composable
-    private fun TakePicture(bitmap: Bitmap?) {
-        val context = LocalContext.current
-        //val bottomSheetModalState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-        val coroutineScope = rememberCoroutineScope()
+    fun TakePicture() {
 
 
+    val context = LocalContext.current
 
         val cameraLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.TakePicturePreview()
@@ -71,19 +69,7 @@ import org.w3c.dom.Text
 
         }
 
-        val permissionLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                if (isCameraSelected) {
-                    cameraLauncher.launch()
-                }
-
-            } else {
-                Toast.makeText(context, "Permission Denied!", Toast.LENGTH_SHORT).show()
-            }
-        }
-
+                    //cameraLauncher.launch()
 
                 Box(
                     modifier = Modifier
@@ -91,10 +77,7 @@ import org.w3c.dom.Text
                         .wrapContentHeight()
                         .background(MaterialTheme.colors.primary.copy(0.08f))
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.SpaceEvenly,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+
 
 
                         Text(
@@ -102,18 +85,11 @@ import org.w3c.dom.Text
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    when (PackageManager.PERMISSION_GRANTED) {
-                                        ContextCompat.checkSelfPermission(
-                                            context, Manifest.permission.CAMERA
-                                        ) -> {
+                                    ContextCompat.checkSelfPermission(
+                                        context, Manifest.permission.CAMERA
+                                    )
                                             cameraLauncher.launch()
 
-                                        }
-                                        else -> {
-                                            isCameraSelected = true
-                                            permissionLauncher.launch(Manifest.permission.CAMERA)
-                                        }
-                                    }
                                 }
                                 .padding(15.dp),
                             color = Color.Black,
@@ -124,7 +100,7 @@ import org.w3c.dom.Text
 
 
                     }
-                }
+
 
     }
 
